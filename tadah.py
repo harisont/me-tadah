@@ -20,6 +20,13 @@ def editPDFinfo(path, title, author):
   with open(path,mode="wb") as file:
     writer.write(file)
 
+  def editEPUBinfo(path, title, author):
+    '''
+    given the path to an epub, a new title and a new author,
+    it updates the pdf's title and author InfoKeys
+    '''
+    pass
+
 if __name__ == '__main__':
   # manage command line args
   parser = argparse.ArgumentParser(description='Edit ebook metadata.')
@@ -37,6 +44,8 @@ if __name__ == '__main__':
   # handle the various formats 
   if ext == '.pdf':
     editPDFinfo(book_path, title, author)
+  elif ext == '.epub':
+    editEPUBinfo(book_path, title, author)
   else: 
     print('file format not supported (yet)!')
     exit(0)
