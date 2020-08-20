@@ -1,15 +1,19 @@
 import argparse
 from os.path import splitext
+# pdf stuff
 from PyPDF2 import PdfFileReader, PdfFileWriter
 from PyPDF2.generic import NameObject, createStringObject
+# epub stuff
+from ebooklib.epub import read_epub, write_epub
 
 def editPDFinfo(path, title, author):
   '''
   given the path to a pdf, a new title and a new author,
   it updates the pdf's title and author InfoKeys
   '''
-  with open(path,mode="rb") as file:
-    info = (PdfFileReader(file)).getDocumentInfo()
+  # read only cause update seems not to be possible in place
+  with open(path,mode="rb") as pdf:
+    info = (PdfFileReader(pdf)).getDocumentInfo()
   info.update({
     # TODO: handle unicode
     NameObject('/Title'): createStringObject(title),
@@ -17,15 +21,20 @@ def editPDFinfo(path, title, author):
   })
   writer = PdfFileWriter()
   writer.addMetadata(info)
-  with open(path,mode="wb") as file:
-    writer.write(file)
+  with open(path,mode="wb") as pdf:
+    writer.write(pdf)
 
-  def editEPUBinfo(path, title, author):
-    '''
-    given the path to an epub, a new title and a new author,
-    it updates the pdf's title and author InfoKeys
-    '''
-    pass
+def editEPUBinfo(path, title, author):
+  '''
+  given the path to an epub, a new title and a new author,
+  it updates the pdf's title and author InfoKeys
+  '''
+  epub = read_epub(path)
+  # not using set_title and add_author cause they don't update existing fields
+  epub.set_unique_metadata('DC', 'title', title)
+  epub.set_unique_metadata('DC', 'creator', author) # creator = author!?
+  write_epub(path, epub)
+
 
 if __name__ == '__main__':
   # manage command line args
