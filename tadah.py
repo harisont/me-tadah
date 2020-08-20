@@ -1,5 +1,5 @@
 import argparse
-from os.path import splitext
+from os.path import splitext, isfile
 # pdf stuff
 from PyPDF2 import PdfFileReader, PdfFileWriter
 from PyPDF2.generic import NameObject, createStringObject
@@ -50,6 +50,9 @@ if __name__ == '__main__':
   (filename, ext) = splitext(book_path)
   ext = ext.lower()
 
+  if not isfile(book_path):
+    print('that\'s not a valid path, you liar!')
+    exit(1)
   # handle the various formats 
   if ext == '.pdf':
     editPDFinfo(book_path, title, author)
