@@ -1,9 +1,6 @@
 import argparse
 from os.path import splitext, isfile
-# pdf stuff
-from PyPDF2 import PdfFileReader, PdfFileWriter
-from PyPDF2.generic import NameObject, createStringObject
-# epub stuff
+from pdfrw import PdfReader, PdfWriter
 from ebooklib.epub import read_epub, write_epub
 
 def editPDFinfo(path, title, author):
@@ -11,18 +8,10 @@ def editPDFinfo(path, title, author):
   given the path to a pdf, a new title and a new author,
   it updates the pdf's title and author InfoKeys
   '''
-  # read only cause update seems not to be possible in place
-  with open(path,mode="rb") as pdf:
-    info = (PdfFileReader(pdf)).getDocumentInfo()
-  info.update({
-    # TODO: handle unicode
-    NameObject('/Title'): createStringObject(title),
-    NameObject('/Author'): createStringObject(author)
-  })
-  writer = PdfFileWriter()
-  writer.addMetadata(info)
-  with open(path,mode="wb") as pdf:
-    writer.write(pdf)
+  pdf = (PdfReader(path))
+  pdf.Info.Title = title
+  pdf.Info.Author = author
+  PdfWriter(path, trailer=pdf).write()
 
 def editEPUBinfo(path, title, author):
   '''
