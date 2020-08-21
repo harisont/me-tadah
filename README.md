@@ -14,5 +14,5 @@ Supported formats:
 
 Dependencies:
 
-- `PyPDF2`
+- `pdfrw`
 - `ebooklin`
