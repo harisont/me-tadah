@@ -16,7 +16,7 @@ tadah path_to_ebook new_title new_author
 ## Dependencies
 
 - `pdfrw`
-- `ebooklin`
+- `ebooklib`
 
 ## Installation
 Just like any other Python program (assuming you have Python installed):
