@@ -40,6 +40,8 @@ and... tadah! Your ebook is good to go!
 
 - `pdfrw`
 - `ebooklib`
+- `bibtexparser`
+- `pyperclip`
 
 ## Installation
 Just like any other Python program (assuming you have Python installed):
