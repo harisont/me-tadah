@@ -12,6 +12,24 @@ Just open a terminal and type something like
 tadah path_to_ebook new_title new_author
 ```
 
+or, if you are working with academic papers and are really **_really_** lazy, you can copy a bibtex string such as
+
+```
+@inproceedings{lee2017l1,
+  title={L1-l2 parallel dependency treebank as learner corpus},
+  author={Lee, John SY and Li, Keying and Leung, Herman},
+  booktitle={Proceedings of the 15th International Conference on Parsing Technologies},
+  pages={44--49},
+  year={2017}
+}
+```
+
+and, while you have it in your clipboard, just type
+
+```
+tadah path_to_ebook
+```
+
 and... tadah! Your ebook is good to go!
 
 ## Supported formats
