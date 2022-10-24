@@ -51,5 +51,5 @@ Just like any other Python program (assuming you have Python installed):
 3. move inside it
 4. mark the Python file as executable (`chmod +x`)
 5. add, as the file's first line, the path to your Python interpreter (for example `#!/usr/bin/env python`)
-6. copy or move the file to a folder in your `PATH`, e.g. `usr/bin`
+6. copy or move the file to a folder in your `PATH`, e.g. `/usr/bin`
 7. optionally, you can rename it to just `tadah` (removing the extension). This will allow you to invoke the program by simply typing `tadah [args]`!
