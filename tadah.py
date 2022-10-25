@@ -18,15 +18,16 @@ def editPDFinfo(path, title, author, cover=None):
   pdf.Info.Title = title
   pdf.Info.Author = author
   PdfWriter(path, trailer=pdf).write()
+  tmp_ebook = "ebook.tmp"
   if cover:
     tmp_cover = 'cover.tmp'
     with Image(filename=cover) as original:
       with original.convert('pdf') as converted:
         converted.save(filename=tmp_cover)
-    concat([tmp_cover, path], "ebook.tmp")
+    concat([tmp_cover, path], tmp_ebook)
     remove(tmp_cover)
     remove(path)
-    rename("ebook.tmp", path)
+    rename(tmp_ebook, path)
 
 def editEPUBinfo(path, title, author):
   '''
