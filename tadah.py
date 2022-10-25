@@ -1,12 +1,15 @@
 import argparse
 from os.path import splitext, isfile
+from os import remove, rename
 from pdfrw import PdfReader, PdfWriter
 from ebooklib.epub import read_epub, write_epub
 from pyperclip import paste as paste_clipboard
 from bibtexparser.bparser import BibTexParser
 from bibtexparser.bibdatabase import as_text
+from pypdftk import concat
+from wand.image import Image
 
-def editPDFinfo(path, title, author):
+def editPDFinfo(path, title, author, cover=None):
   '''
   given the path to a pdf, a new title and a new author,
   it updates the pdf's title and author InfoKeys
@@ -15,6 +18,15 @@ def editPDFinfo(path, title, author):
   pdf.Info.Title = title
   pdf.Info.Author = author
   PdfWriter(path, trailer=pdf).write()
+  if cover:
+    tmp_cover = 'cover.tmp'
+    with Image(filename=cover) as original:
+      with original.convert('pdf') as converted:
+        converted.save(filename=tmp_cover)
+    concat([tmp_cover, path], "ebook.tmp")
+    remove(tmp_cover)
+    remove(path)
+    rename("ebook.tmp", path)
 
 def editEPUBinfo(path, title, author):
   '''
@@ -34,6 +46,7 @@ if __name__ == '__main__':
   parser.add_argument('book', help='path to an EPUB or PDF FILE')
   parser.add_argument('title', help='new title', nargs='?')
   parser.add_argument('author', help='new author', nargs='?')
+  parser.add_argument('--cover', help='path to new cover image', default=None)
   args = parser.parse_args()
 
   book_path = args.book
@@ -52,6 +65,7 @@ if __name__ == '__main__':
       print('try provide title and author as command line arguments.')
       exit(-1)
 
+  cover = args.cover
 
   (filename, ext) = splitext(book_path)
   ext = ext.lower()
@@ -61,7 +75,7 @@ if __name__ == '__main__':
     exit(1)
   # handle the various formats 
   if ext == '.pdf':
-    editPDFinfo(book_path, title, author)
+    editPDFinfo(book_path, title, author, cover=cover)
   elif ext == '.epub':
     editEPUBinfo(book_path, title, author)
   else: 
