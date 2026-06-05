@@ -1,6 +1,8 @@
+> __IMPORTANT NOTE:__ this GitHub repository is archived, but me-tadah is still under active development. It has simply [moved to Codeberg](https://codeberg.org/harisont/me-tadah).
+
 # Me-tadah!
 
-There are two types of metadata editors: those that don't work, and those that are just a tiny tiny part of a gigantic ebook management programme (that sometimes doesn't even work).
+There are two types of ebook metadata editors: those that don't work, and those that are just a tiny tiny part of a gigantic ebook management programme (that sometimes doesn't even work).
 
 Me-tadah, on the other hand, let you quickly edit the title and author of your ebooks and that's it.
 If you wish you could also edit the ~~cover~~[^1], publisher, year of publication and other not-so-crucial pieces of information, you are welcome to open a pull request. Implementing that stuff with the libraries I'm using should be relatively straightforward, but I'm too lazy for that and honestly? I only care about title and author 99% of the times.
